@@ -1,0 +1,828 @@
+/* ============================================
+   MODERN CALCULATOR STYLES
+   Professional Glassmorphism Design
+   ============================================ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES (Variables)
+   ============================================ */
+:root {
+    /* Light Theme Colors */
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.85);
+    --bg-glass: rgba(255, 255, 255, 0.25);
+    --text-primary: #1a1a2e;
+    --text-secondary: #666;
+    --text-display: #1a1a2e;
+    --text-expression: #888
+    
+    /* Button Colors */
+    --btn-number-bg: rgba(255, 255, 255, 0.9);
+    --btn-number-hover: rgba(240, 240, 255, 0.95);
+    --btn-operator-bg: rgba(102, 126, 234, 0.15);
+    --btn-operator-hover: rgba(102, 126, 234, 0.25);
+    --btn-equal-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --btn-equal-hover: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+    --btn-clear-bg: rgba(255, 99, 71, 0.15);
+    --btn-clear-hover: rgba(255, 99, 71, 0.25);
+    --btn-memory-bg: rgba(118, 75, 162, 0.1);
+    --btn-memory-hover: rgba(118, 75, 162, 0.2);
+    --btn-scientific-bg: rgba(102, 126, 234, 0.1);
+    --btn-scientific-hover: rgba(102, 126, 234, 0.2);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 32px;
+    --font-size-3xl: 48px;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --bg-secondary: rgba(30, 30, 50, 0.95);
+    --bg-card: rgba(40, 40, 60, 0.9);
+    --bg-glass: rgba(255, 255, 255, 0.05);
+    --text-primary: #ffffff;
+    --text-secondary: #aaa;
+    --text-display: #ffffff;
+    --text-expression: #888;
+    
+    --btn-number-bg: rgba(60, 60, 80, 0.9);
+    --btn-number-hover: rgba(80, 80, 100, 0.95);
+    --btn-operator-bg: rgba(102, 126, 234, 0.2);
+    --btn-operator-hover: rgba(102, 126, 234, 0.3);
+    --btn-equal-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --btn-equal-hover: linear-gradient(135deg, #7a8ff0 0%, #8a55b2 100%);
+    --btn-clear-bg: rgba(255, 99, 71, 0.2);
+    --btn-clear-hover: rgba(255, 99, 71, 0.3);
+    --btn-memory-bg: rgba(118, 75, 162, 0.15);
+    --btn-memory-hover: rgba(118, 75, 162, 0.25);
+    --btn-scientific-bg: rgba(102, 126, 234, 0.15);
+    --btn-scientific-hover: rgba(102, 126, 234, 0.25);
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    color: var(--text-primary);
+    transition: background var(--transition-slow);
+    overflow-x: hidden;
+}
+
+/* ============================================
+   APP CONTAINER
+   ============================================ */
+.app-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.app-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.header-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--btn-operator-bg);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+    background: var(--btn-operator-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.icon-btn:focus {
+    outline: 2px solid var(--btn-equal-bg);
+    outline-offset: 2px;
+}
+
+.icon-btn svg {
+    transition: transform var(--transition-fast);
+}
+
+.icon-btn:hover svg {
+    transform: scale(1.1);
+}
+
+.moon-icon {
+    display: none;
+}
+
+[data-theme="dark"] .sun-icon {
+    display: none;
+}
+
+[data-theme="dark"] .moon-icon {
+    display: block;
+}
+
+/* ============================================
+   CALCULATOR WRAPPER
+   ============================================ */
+.calculator-wrapper {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* ============================================
+   CALCULATOR CARD
+   ============================================ */
+.calculator-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    min-width: 320px;
+    max-width: 400px;
+    transition: all var(--transition-slow);
+}
+
+/* ============================================
+   CALCULATOR DISPLAY
+   ============================================ */
+.calculator-display {
+    background: var(--bg-glass);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.display-expression {
+    font-size: var(--font-size-sm);
+    color: var(--text-expression);
+    min-height: 20px;
+    margin-bottom: var(--spacing-xs);
+    word-wrap: break-word;
+    word-break: break-all;
+    opacity: 0.8;
+}
+
+.display-main {
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    color: var(--text-display);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    word-wrap: break-word;
+    word-break: break-all;
+    transition: all var(--transition-fast);
+}
+
+.display-main.animate {
+    animation: displayPulse 200ms ease;
+}
+
+@keyframes displayPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.display-indicator {
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.display-indicator.active {
+    opacity: 1;
+}
+
+/* ============================================
+   MEMORY BUTTONS
+   ============================================ */
+.memory-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+}
+
+/* ============================================
+   SCIENTIFIC TOGGLE
+   ============================================ */
+.scientific-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--btn-scientific-bg);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.scientific-toggle:hover {
+    background: var(--btn-scientific-hover);
+}
+
+.scientific-toggle:focus {
+    outline: 2px solid var(--btn-equal-bg);
+    outline-offset: 2px;
+}
+
+.toggle-icon {
+    font-size: var(--font-size-md);
+    font-style: italic;
+}
+
+.scientific-toggle.active {
+    background: var(--btn-equal-bg);
+    color: white;
+}
+
+/* ============================================
+   SCIENTIFIC FUNCTIONS
+   ============================================ */
+.scientific-functions {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+    animation: slideDown 300ms ease;
+}
+
+.scientific-functions.active {
+    display: grid;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   CALCULATOR KEYPAD
+   ============================================ */
+.calculator-keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-sm);
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    font-size: var(--font-size-lg);
+    font-weight: 500;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 300ms, height 300ms;
+}
+
+.btn:active::before {
+    width: 200px;
+    height: 200px;
+}
+
+.btn:focus {
+    outline: 2px solid var(--btn-equal-bg);
+    outline-offset: 2px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Number Buttons */
+.btn-number {
+    background: var(--btn-number-bg);
+    color: var(--text-primary);
+}
+
+.btn-number:hover {
+    background: var(--btn-number-hover);
+}
+
+.btn-number.keyboard-active {
+    background: var(--btn-equal-bg);
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Operator Buttons */
+.btn-operator {
+    background: var(--btn-operator-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+}
+
+.btn-operator:hover {
+    background: var(--btn-operator-hover);
+}
+
+.btn-operator.keyboard-active {
+    background: var(--btn-equal-bg);
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Equal Button */
+.btn-equal {
+    background: var(--btn-equal-bg);
+    color: white;
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+}
+
+.btn-equal:hover {
+    background: var(--btn-equal-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-equal.keyboard-active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+/* Clear Buttons */
+.btn-clear {
+    background: var(--btn-clear-bg);
+    color: #ff6347;
+    font-weight: 600;
+}
+
+.btn-clear:hover {
+    background: var(--btn-clear-hover);
+}
+
+.btn-clear.keyboard-active {
+    background: #ff6347;
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Memory Buttons */
+.btn-memory {
+    background: var(--btn-memory-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--spacing-sm);
+}
+
+.btn-memory:hover {
+    background: var(--btn-memory-hover);
+}
+
+.btn-memory.keyboard-active {
+    background: var(--btn-equal-bg);
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Scientific Buttons */
+.btn-scientific {
+    background: var(--btn-scientific-bg);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--spacing-sm);
+}
+
+.btn-scientific:hover {
+    background: var(--btn-scientific-hover);
+}
+
+.btn-scientific.keyboard-active {
+    background: var(--btn-equal-bg);
+    color: white;
+    transform: scale(0.95);
+}
+
+/* Percentage Button */
+.btn-percent {
+    grid-column: span 4;
+    background: var(--btn-operator-bg);
+    color: var(--text-primary);
+    margin-top: var(--spacing-xs);
+}
+
+.btn-percent:hover {
+    background: var(--btn-operator-hover);
+}
+
+.btn-percent.keyboard-active {
+    background: var(--btn-equal-bg);
+    color: white;
+    transform: scale(0.95);
+}
+
+/* ============================================
+   HISTORY PANEL
+   ============================================ */
+.history-panel {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 280px;
+    max-height: 520px;
+    display: none;
+    flex-direction: column;
+    animation: slideIn 300ms ease;
+}
+
+.history-panel.active {
+    display: flex;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-header h2 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.history-header .icon-btn {
+    width: 32px;
+    height: 32px;
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: var(--btn-equal-bg);
+    border-radius: 3px;
+}
+
+.history-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-lg);
+}
+
+.history-item {
+    background: var(--bg-glass);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.history-item:hover {
+    background: var(--btn-operator-hover);
+    transform: translateX(4px);
+}
+
+.history-expression {
+    font-size: var(--font-size-xs);
+    color: var(--text-expression);
+    margin-bottom: 2px;
+}
+
+.history-result {
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.app-footer {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-md);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .calculator-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .history-panel {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .app-header {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .app-title {
+        font-size: var(--font-size-lg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: var(--spacing-sm);
+    }
+    
+    .app-container {
+        gap: var(--spacing-md);
+    }
+    
+    .calculator-card {
+        min-width: 100%;
+        max-width: 100%;
+        padding: var(--spacing-md);
+    }
+    
+    .display-main {
+        font-size: var(--font-size-2xl);
+        min-height: 50px;
+    }
+    
+    .btn {
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-md);
+    }
+    
+    .btn-equal,
+    .btn-operator {
+        font-size: var(--font-size-lg);
+    }
+    
+    .history-panel {
+        max-height: 300px;
+    }
+    
+    .app-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .icon-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+    .display-main {
+        font-size: var(--font-size-xl);
+    }
+    
+    .btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: var(--font-size-sm);
+    }
+    
+    .memory-buttons,
+    .scientific-functions {
+        gap: var(--spacing-xs);
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .calculator-card,
+    .history-panel,
+    .app-header {
+        border: 2px solid var(--text-primary);
+    }
+    
+    .btn:focus {
+        outline: 3px solid var(--text-primary);
+        outline-offset: 3px;
+    }
+}
+
+/* Focus Visible */
+.btn:focus-visible,
+.icon-btn:focus-visible,
+.scientific-toggle:focus-visible {
+    outline: 2px solid var(--btn-equal-bg);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .calculator-card,
+    .history-panel,
+    .app-header {
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .icon-btn,
+    .scientific-toggle {
+        display: none;
+    }
+}
