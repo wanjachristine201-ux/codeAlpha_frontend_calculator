@@ -247,7 +247,7 @@ This project is open source and available for educational purposes.
 
 ## 👨‍💻 Author
 
-Built as a frontend internship portfolio project demonstrating professional web development skills.
+Built as a frontend internship portfolio project by Christine Wanja demonstrating professional web development skills.
 
 ## 🙏 Acknowledgments
 
